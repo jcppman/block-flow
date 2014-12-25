@@ -6,6 +6,7 @@
                 position: relative;
             }
             .row {
+                position: absolute;
                 margin: auto;
                 text-align: left;
             }
@@ -76,6 +77,7 @@
                             this.addRow = function (rowElement, isEven) {
 
                                 $timeout(function () {
+
                                     // calculate top 
                                     var selector = isEven ? 'left' : 'right';
                                     var top = Math.max(topOffsets[selector], topOffsets.middle);
@@ -85,8 +87,7 @@
                                     topOffsets.middle = top + BOX_HEIGHT;
 
                                     // change position
-                                    rowElement.css({
-                                        position: 'absolute',
+                                    rowElement.animate({
                                         top: top+'px'
                                     });
                                 });
