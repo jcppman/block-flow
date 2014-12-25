@@ -2,21 +2,19 @@
 <html>
     <head>
         <style>
-            .container {
-                text-align: center;
-            }
-
             .row {
                 margin: auto;
+                text-align: left;
             }
 
             .block {
+                vertical-align: top;
+                text-align: center;
                 display: inline-block;
                 border-radius: 20px;
                 margin: 10px;
                 padding: 10px;
                 background-color: orange;
-                vertical-align: top;
             }
             .big {
                 width: 250px;
@@ -33,7 +31,7 @@
     </head>
     <body ng-app="blockFlow">
         <div ng-controller="mainCtr">
-            <div flow class="container"></div>
+            <div flow></div>
         </div>
         <script type="text/javascript">
             var ipsums = [
