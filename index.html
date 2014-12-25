@@ -51,7 +51,7 @@
         <script type="text/javascript">
             angular.module('blockFlow', [])
                 .controller('mainCtr', function ($scope) {
-                }).directive('flow', function () {
+                }).directive('flow', function ($timeout) {
                     var BOX_HEIGHT = 140;
                     return {
                         templateUrl: 'flow.html',
@@ -75,18 +75,20 @@
 
                             this.addRow = function (rowElement, isEven) {
 
-                                // calculate top 
-                                var selector = isEven ? 'left' : 'right';
-                                var top = Math.max(topOffsets[selector], topOffsets.middle);
+                                $timeout(function () {
+                                    // calculate top 
+                                    var selector = isEven ? 'left' : 'right';
+                                    var top = Math.max(topOffsets[selector], topOffsets.middle);
 
-                                // update topOffsets
-                                topOffsets[selector] = top + rowElement.outerHeight(true);
-                                topOffsets.middle = top + BOX_HEIGHT;
+                                    // update topOffsets
+                                    topOffsets[selector] = top + rowElement.outerHeight(true);
+                                    topOffsets.middle = top + BOX_HEIGHT;
 
-                                // change position
-                                rowElement.css({
-                                    position: 'absolute',
-                                    top: top+'px'
+                                    // change position
+                                    rowElement.css({
+                                        position: 'absolute',
+                                        top: top+'px'
+                                    });
                                 });
 
                             };
