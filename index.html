@@ -91,9 +91,9 @@
         </script>
         <script type="text/ng-template" id="row.html">
             <div class="block big invisible" ng-hide="isEven"></div>
-            <div class="block small">{{myTitle}}</div>
+            <div class="block small" ng-hide="isEven">{{myTitle}}</div>
             <div class="block big">{{myContent}}</div>
-            <div class="block small">{{myTitle}}</div>
+            <div class="block small" ng-show="isEven">{{myTitle}}</div>
         </script>
     </body>
 </html>
