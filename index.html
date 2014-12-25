@@ -8,15 +8,17 @@
 
             .row {
                 margin: auto;
+                text-align: left;
             }
 
             .block {
+                vertical-align: top;
+                text-align: center;
                 display: inline-block;
                 border-radius: 20px;
                 margin: 10px;
                 padding: 10px;
                 background-color: orange;
-                vertical-align: top;
             }
             .big {
                 width: 250px;
@@ -77,18 +79,18 @@
                         restrict: 'A',
                         scope: {
                             myTitle: '=',
-                            myContent: '='
+                            myContent: '=',
+                            isEven: '='
                         }
                     }
                 });
         </script>
         <script type="text/ng-template" id="flow.html">
-            <div ng-repeat="item in items">
-                <div row class="row" my-title="item.myTitle" my-content="item.myContent"></div>
+            <div ng-repeat="item in items" class="row" row my-title="item.myTitle" my-content="item.myContent" is-even="$even">
             </div>
         </script>
         <script type="text/ng-template" id="row.html">
-            <div class="block big"></div>
+            <div class="block big invisible" ng-hide="isEven"></div>
             <div class="block small">{{myTitle}}</div>
             <div class="block big">{{myContent}}</div>
             <div class="block small">{{myTitle}}</div>
