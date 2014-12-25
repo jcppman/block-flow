@@ -2,6 +2,9 @@
 <html>
     <head>
         <style>
+            div[flow] {
+                position: relative;
+            }
             .row {
                 margin: auto;
                 text-align: left;
@@ -11,6 +14,7 @@
                 vertical-align: top;
                 text-align: center;
                 display: inline-block;
+                border: medium solid yellow;
                 border-radius: 20px;
                 margin: 10px;
                 padding: 10px;
@@ -42,15 +46,25 @@
             ];
         </script>
 
+        <script src="node_modules/jquery/dist/jquery.js"></script>
         <script src="node_modules/angular/angular.js"></script>
         <script type="text/javascript">
             angular.module('blockFlow', [])
                 .controller('mainCtr', function ($scope) {
                 }).directive('flow', function () {
+                    var BOX_HEIGHT = 140;
                     return {
                         templateUrl: 'flow.html',
                         restrict: 'A',
                         controller: function ($scope) {
+                            // Initial positions
+                            // [left, middle, right]
+                            var topOffsets = {
+                                left: 0,
+                                right: 0,
+                                middle: 0
+                            };
+
                             $scope.items = [];
                             for (var i = 0 ; i < 30 ; i++) {
                                 $scope.items.push({
@@ -58,6 +72,24 @@
                                     myContent: generateContent()
                                 });
                             }
+
+                            this.addRow = function (rowElement, isEven) {
+
+                                // calculate top 
+                                var selector = isEven ? 'left' : 'right';
+                                var top = Math.max(topOffsets[selector], topOffsets.middle);
+
+                                // update topOffsets
+                                topOffsets[selector] = top + rowElement.outerHeight(true);
+                                topOffsets.middle = top + BOX_HEIGHT;
+
+                                // change position
+                                rowElement.css({
+                                    position: 'absolute',
+                                    top: top+'px'
+                                });
+
+                            };
 
                             function generateTitle () {
                                 var i = Math.floor((Math.random() * 10)) % 4;
@@ -77,6 +109,10 @@
                             myTitle: '=',
                             myContent: '=',
                             isEven: '='
+                        },
+                        require: '^flow',
+                        link: function (scope, element, attrs, rowCtrl) {
+                            rowCtrl.addRow(element, scope.isEven);
                         }
                     }
                 });
