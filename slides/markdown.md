@@ -223,7 +223,8 @@ the DOM is rendered.
 
 `step_4`
 
+
 --- 
 
-### The ending
+### The END
 
